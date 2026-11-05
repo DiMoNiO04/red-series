@@ -10,7 +10,7 @@ type TEpisode = {
   number: number;
 };
 
-export function VideoModal({ episode }: { episode: TEpisode }) {
+export function VideoModal({ episode, seriesSlug }: { episode: TEpisode; seriesSlug: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -40,6 +40,21 @@ export function VideoModal({ episode }: { episode: TEpisode }) {
                 type: 'video/mp4',
               },
             ],
+          }}
+          onReady={player => {
+            player.currentTime(2);
+
+            const key = `progress:${seriesSlug}:${episode.number}`;
+            const savedTime = localStorage.getItem(key);
+
+            if (savedTime) {
+              player.currentTime(parseFloat(savedTime));
+            }
+
+            player.on('timeupdate', () => {
+              const current = player.currentTime();
+              localStorage.setItem(key, String(current));
+            });
           }}
         />
       </DialogContent>

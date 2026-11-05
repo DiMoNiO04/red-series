@@ -1,4 +1,5 @@
 import { getSeries } from '@/app/series/[slug]/page';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { EpisodesCarousel } from './EpisodesCarousel';
 import { SeriesMain } from './SeriesMain';
@@ -22,9 +23,15 @@ export async function SeriesContent({ params, searchParams }: SeriesContentProps
 
   return (
     <>
+      
       <SeriesMain series={series} />
       <EpisodesCarousel series={series} />
-      {activeEpisode && <VideoModal episode={activeEpisode} />}
+      {activeEpisode && (
+        <VideoModal
+          seriesSlug={series.slug}
+          episode={activeEpisode}
+        />
+      )}
     </>
   );
 }
