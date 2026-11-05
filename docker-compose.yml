@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+    container_name: red-series-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - '80:3000'
+ 
