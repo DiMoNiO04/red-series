@@ -97,11 +97,14 @@ export async function getSeries(slug: string) {
   });
 }
 
-export default function Page({ params }: TSeriesPageParams) {
+export default function Page({ params, searchParams }: TSeriesPageParams) {
   return (
     <main className='min-h-screen bg-black text-white'>
       <Suspense fallback={<div>Загрузка...</div>}>
-        <SeriesContent params={params} />
+        <SeriesContent
+          params={params}
+          searchParams={searchParams}
+        />
       </Suspense>
     </main>
   );
